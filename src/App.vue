@@ -9,6 +9,23 @@ onBeforeMount(() => {
     messages.value = response;
   });
 });
+
+
+socket.on("message", (message) => {
+  messages.value.push(message);
+});
+
+const sendMessage = () => {
+  socket.emit("createMessage", {
+    text: messageText.value,
+    response =>
+    {
+      messages.value.push(response);
+      messageText.value = "";}
+  });
+};
+
+
 </script>
 
 <template>
